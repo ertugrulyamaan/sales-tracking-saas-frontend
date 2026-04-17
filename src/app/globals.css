@@ -1,8 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
 @import "tailwindcss";
 
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
+	--background: #0f0f0f;
+	--foreground: #ededed;
 }
 
 @theme inline {
@@ -12,15 +13,52 @@
 	--font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
-}
-
 body {
 	background: var(--background);
 	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+.ledger-grid-dark {
+  background-image:
+    linear-gradient(to right, rgba(133, 148, 143, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(133, 148, 143, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.ledger-grid-light {
+  background-image:
+    linear-gradient(rgba(60, 74, 70, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(60, 74, 70, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.signal-cut {
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+
+.signal-cut-sm {
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+
+.signal-cut-reverse {
+  clip-path: polygon(0 20px, 20px 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.mono-metrics {
+  font-family: "JetBrains Mono", monospace;
+}
+
+.font-headline {
+  font-family: "Manrope", sans-serif;
+}
+
+.font-body {
+  font-family: "Inter", sans-serif;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined", sans-serif;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  line-height: 1;
 }
