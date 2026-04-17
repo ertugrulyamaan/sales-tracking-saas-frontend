@@ -265,7 +265,7 @@ export default function HomePage() {
       {activeModal === "login" ? (
         <AuthModal
           title="Login"
-          description="Hesabina giris yaparak workspace verilerine eris."
+          description="Login to your account and access your workspace data."
           onClose={() => setActiveModal(null)}
         >
           <form className="space-y-3" onSubmit={submitLogin}>
@@ -297,7 +297,7 @@ export default function HomePage() {
               disabled={loginMutation.isPending}
               className="w-full rounded bg-[#44ddc1] px-3 py-2 text-sm font-semibold text-[#00382f]"
             >
-              {loginMutation.isPending ? "Giris yapiliyor..." : "Giris yap"}
+              {loginMutation.isPending ? "Logging in..." : "Login"}
             </button>
           </form>
         </AuthModal>
@@ -306,7 +306,7 @@ export default function HomePage() {
       {activeModal === "register" ? (
         <AuthModal
           title="Register"
-          description="Yeni hesap olustur ve tracking akisini baslat."
+          description="Create a new account and start tracking your data."
           onClose={() => setActiveModal(null)}
         >
           <form className="space-y-3" onSubmit={submitRegister}>
@@ -340,7 +340,7 @@ export default function HomePage() {
               disabled={registerMutation.isPending}
               className="w-full rounded bg-[#44ddc1] px-3 py-2 text-sm font-semibold text-[#00382f]"
             >
-              {registerMutation.isPending ? "Kayit yapiliyor..." : "Kayit ol"}
+              {registerMutation.isPending ? "Registering..." : "Register"}
             </button>
           </form>
         </AuthModal>

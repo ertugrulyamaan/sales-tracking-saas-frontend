@@ -42,7 +42,7 @@ const MOCK_CHART_DATA = [
 ];
 
 function toChartData(_sales: SaleRecord[]) {
-  // Chartlar icin fetch verisini simdilik kapattik.
+  // Temporary mock data for testing
   // const sorted = [...sales].sort((a, b) => a.date.localeCompare(b.date)).slice(-7);
   const sorted = MOCK_CHART_DATA;
 

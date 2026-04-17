@@ -17,7 +17,7 @@ export function DashboardHeader({ eyebrow, title, subtitle, homeButtonClassName 
         {subtitle ? <p className="mt-2 text-sm">{subtitle}</p> : null}
       </div>
       <Link href="/" className={homeButtonClassName}>
-        Ana Sayfa
+        Home
       </Link>
     </header>
   );
@@ -33,7 +33,7 @@ type WorkspaceSelectProps = {
 export function WorkspaceSelect({ value, onChange, workspaces, className }: WorkspaceSelectProps) {
   return (
     <select className={className} value={value} onChange={(e) => onChange(e.target.value)}>
-      <option value="">Workspace seç</option>
+      <option value="">Select Workspace</option>
       {workspaces.map((workspace) => (
         <option key={workspace.id} value={workspace.id}>
           {workspace.name}

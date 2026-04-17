@@ -7,6 +7,7 @@ import {
   updateWorkspace,
 } from "./api";
 import { useAuthStore } from "@/stores/auth-store";
+import { toast } from "sonner";
 
 const workspaceKeys = {
   all: ["workspaces"] as const,
@@ -30,6 +31,10 @@ export function useCreateWorkspaceMutation() {
     mutationFn: (payload: { name: string }) => createWorkspace(token!, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: workspaceKeys.all });
+      toast.success("Workspace olusturuldu.");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Workspace olusturulamadi.");
     },
   });
 }
@@ -42,6 +47,10 @@ export function useUpdateWorkspaceMutation(id: string) {
     mutationFn: (payload: { name: string }) => updateWorkspace(token!, id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: workspaceKeys.all });
+      toast.success("Workspace guncellendi.");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Workspace guncellenemedi.");
     },
   });
 }

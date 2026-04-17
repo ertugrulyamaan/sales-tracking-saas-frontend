@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addSale, listSales, upsertSale } from "./api";
 import { useAuthStore } from "@/stores/auth-store";
+import { toast } from "sonner";
 
 const salesKeys = {
   list: (workspaceId: string, from?: string, to?: string) =>
@@ -44,6 +45,10 @@ export function useUpsertSaleMutation(current?: {
       queryClient.invalidateQueries({
         queryKey: salesKeys.list(current.workspaceId, current.from, current.to),
       });
+      toast.success("Satis kaydi guncellendi.");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Satis kaydi guncellenemedi.");
     },
   });
 }
@@ -68,6 +73,10 @@ export function useAddSaleMutation(current?: {
       queryClient.invalidateQueries({
         queryKey: salesKeys.list(current.workspaceId, current.from, current.to),
       });
+      toast.success("Satis verisi eklendi.");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Satis verisi eklenemedi.");
     },
   });
 }

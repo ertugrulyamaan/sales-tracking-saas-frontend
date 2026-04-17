@@ -10,8 +10,10 @@ import { AppSidebar } from "@/components/layout/app-sidebar";
 import { useAuthStore } from "@/stores/auth-store";
 import { useWorkspacesQuery } from "@/features/workspaces/hook";
 import { useWorkspaceStore } from "@/stores/workspace-store";
+import { useRouter } from "next/navigation";
 
 export default function WorkbenchPage() {
+  const router = useRouter();
   const token = useAuthStore((s) => s.accessToken);
   const user = useAuthStore((s) => s.user);
   const clearSession = useAuthStore((s) => s.clearSession);
@@ -72,7 +74,13 @@ export default function WorkbenchPage() {
           </form>
         </section>
       ) : (
-        <button className="rounded border px-3 py-2" onClick={() => clearSession()}>
+        <button
+          className="rounded border px-3 py-2"
+          onClick={() => {
+            clearSession();
+            router.replace("/");
+          }}
+        >
           Cikis yap
         </button>
       )}

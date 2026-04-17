@@ -36,7 +36,7 @@ export default function WeeklySummaryAnalysisPage() {
             <p className="mono-metrics mt-2 text-sm text-[#85948f]">OCT 14 — OCT 20, 2024</p>
           </div>
           <Link href="/" className="signal-cut-sm bg-[#44ddc1] px-4 py-2 text-xs font-bold uppercase tracking-widest text-[#00382f]">
-            Ana Sayfa
+            Home
           </Link>
         </header>
 
@@ -52,8 +52,8 @@ export default function WeeklySummaryAnalysisPage() {
         <WeeklyStats sales={sales} summary={summary} />
         <WeeklyLedgerTable sales={sales} />
 
-        {salesQuery.isLoading ? <p className="text-sm text-[#85948f]">Satışlar yükleniyor...</p> : null}
-        {salesQuery.isError ? <p className="text-sm text-[#ffb4ac]">Hata: {(salesQuery.error as Error).message}</p> : null}
+        {salesQuery.isLoading ? <p className="text-sm text-[#85948f]">Sales are loading...</p> : null}
+        {salesQuery.isError ? <p className="text-sm text-[#ffb4ac]">Error: {(salesQuery.error as Error).message}</p> : null}
       </div>
     </div>
   );

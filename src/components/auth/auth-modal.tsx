@@ -29,7 +29,7 @@ export function AuthModal({
             onClick={onClose}
             className="rounded border border-[#3c4a46] px-2 py-1 text-xs text-[#bbcac4] hover:bg-[#232323]"
           >
-            Kapat
+            Close
           </button>
         </div>
         {children}

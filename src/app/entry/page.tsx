@@ -54,7 +54,7 @@ export default function DailyEntryFormPage() {
             <h1 className="font-headline text-3xl font-black">Daily Entry Form</h1>
           </div>
           <Link href="/" className="signal-cut-sm bg-[#44ddc1] px-4 py-2 text-xs font-bold uppercase tracking-widest text-[#00382f]">
-            Ana Sayfa
+            Home
           </Link>
         </header>
 
