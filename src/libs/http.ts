@@ -13,6 +13,10 @@ export class ApiError extends Error {
   }
 }
 
+type ApiErrorPayload = {
+  message?: string | string[];
+};
+
 type RequestOptions = {
   method?: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
   body?: unknown;
@@ -44,13 +48,19 @@ export async function http<T>(
     }
 
     const fallback = `Request failed: ${res.status}`;
-    const message =
-      typeof payload === "object" &&
-      payload !== null &&
-      "message" in payload &&
-      typeof (payload as { message?: unknown }).message === "string"
-        ? (payload as { message: string }).message
+    const messageValue =
+      typeof payload === "object" && payload !== null
+        ? (payload as ApiErrorPayload).message
+        : undefined;
+    const message = Array.isArray(messageValue)
+      ? messageValue.join(", ")
+      : typeof messageValue === "string"
+        ? messageValue
         : fallback;
+
+    if (res.status === 401 && typeof window !== "undefined") {
+      window.dispatchEvent(new Event("app:unauthorized"));
+    }
 
     throw new ApiError(message, res.status, payload);
   }

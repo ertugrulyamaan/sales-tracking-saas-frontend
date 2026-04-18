@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MissionRevenueBarChart } from "@/components/charts/sales-charts";
-import { formatMoney, formatPercent, type SalesSummary } from "@/features/sales/metrics";
+import { formatMoney, formatPercent } from "@/features/sales/metrics";
 import type { SaleRecord } from "@/types/api";
 
 type MissionSidebarProps = {
@@ -29,15 +29,22 @@ export function MissionSidebar({ isLoggedIn }: MissionSidebarProps) {
 }
 
 type MissionKpiGridProps = {
-  summary: SalesSummary;
+  totalAmount: number;
+  netRevenue: number;
+  trendPercent: number;
   totalRecords: number;
 };
 
-export function MissionKpiGrid({ summary, totalRecords }: MissionKpiGridProps) {
+export function MissionKpiGrid({
+  totalAmount,
+  netRevenue,
+  trendPercent,
+  totalRecords,
+}: MissionKpiGridProps) {
   const cards = [
-    { label: "Gross Revenue", value: formatMoney(summary.totalAmount), trend: formatPercent(summary.trendPercent) },
-    { label: "Active Pipelines", value: String(summary.totalCount), trend: `${totalRecords} records` },
-    { label: "Average Ticket", value: formatMoney(summary.averageAmount), trend: `Last ${formatMoney(summary.lastAmount)}` },
+    { label: "Gross Revenue", value: formatMoney(totalAmount), trend: formatPercent(trendPercent) },
+    { label: "Active Pipelines", value: String(totalRecords), trend: `${totalRecords} records` },
+    { label: "Net Revenue", value: formatMoney(netRevenue), trend: `${totalRecords} records` },
   ];
 
   return (
@@ -55,10 +62,19 @@ export function MissionKpiGrid({ summary, totalRecords }: MissionKpiGridProps) {
 
 type MissionAnalyticsProps = {
   chartData: SaleRecord[];
-  summary: SalesSummary;
+  latestAmount: number;
+  previousAmount: number;
+  trendPercent: number;
+  insights: string[];
 };
 
-export function MissionAnalytics({ chartData, summary }: MissionAnalyticsProps) {
+export function MissionAnalytics({
+  chartData,
+  latestAmount,
+  previousAmount,
+  trendPercent,
+  insights,
+}: MissionAnalyticsProps) {
   return (
     <section className="mt-6 grid gap-4 lg:grid-cols-3">
       <article className="signal-cut lg:col-span-2 bg-[#1c1b1b] p-6">
@@ -71,9 +87,12 @@ export function MissionAnalytics({ chartData, summary }: MissionAnalyticsProps) 
       <article className="signal-cut bg-[#201f1f] p-6">
         <h3 className="text-xs font-bold uppercase tracking-widest text-[#44ddc1]">Pulse Insights</h3>
         <ul className="mt-4 space-y-3 text-sm text-[#bbcac4]">
-          <li>Latest sale amount: {formatMoney(summary.lastAmount)}</li>
-          <li>Previous sale amount: {formatMoney(summary.previousAmount)}</li>
-          <li>Trend delta: {formatPercent(summary.trendPercent)}</li>
+          <li>Latest sale amount: {formatMoney(latestAmount)}</li>
+          <li>Previous sale amount: {formatMoney(previousAmount)}</li>
+          <li>Trend delta: {formatPercent(trendPercent)}</li>
+          {insights.slice(0, 2).map((insight) => (
+            <li key={insight}>{insight}</li>
+          ))}
         </ul>
       </article>
     </section>

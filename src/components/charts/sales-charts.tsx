@@ -31,20 +31,8 @@ type SalesChartProps = {
   sales: SaleRecord[];
 };
 
-const MOCK_CHART_DATA = [
-  { date: "2026-04-10", salesAmount: "840.25", salesCount: 4 },
-  { date: "2026-04-11", salesAmount: "1290.40", salesCount: 6 },
-  { date: "2026-04-12", salesAmount: "980.10", salesCount: 5 },
-  { date: "2026-04-13", salesAmount: "1650.85", salesCount: 8 },
-  { date: "2026-04-14", salesAmount: "1410.55", salesCount: 7 },
-  { date: "2026-04-15", salesAmount: "1840.90", salesCount: 9 },
-  { date: "2026-04-16", salesAmount: "1725.30", salesCount: 8 },
-];
-
-function toChartData(_sales: SaleRecord[]) {
-  // Temporary mock data for testing
-  // const sorted = [...sales].sort((a, b) => a.date.localeCompare(b.date)).slice(-7);
-  const sorted = MOCK_CHART_DATA;
+function toChartData(sales: SaleRecord[]) {
+  const sorted = [...sales].sort((a, b) => a.date.localeCompare(b.date)).slice(-7);
 
   return {
     labels: sorted.map((sale) => shortDateLabel(sale.date)),

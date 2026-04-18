@@ -24,6 +24,7 @@ export function useLoginMutation() {
 
 export function useRegisterMutation() {
   const setSession = useAuthStore((s) => s.setSession);
+  const router = useRouter();
 
   return useMutation({
     mutationFn: register,
