@@ -1,9 +1,14 @@
 import { http } from "@/libs/http";
-import type { WeeklySummaryResponse } from "@/types/api";
+import type { DailySummaryResponse, WeeklySummaryResponse } from "@/types/api";
 
 export type WeeklySummaryParams = {
   workspaceId: string;
   weekStartDate: string;
+};
+
+export type DailySummaryParams = {
+  workspaceId: string;
+  date: string;
 };
 
 export function getWeeklySummary(token: string, params: WeeklySummaryParams) {
@@ -13,6 +18,18 @@ export function getWeeklySummary(token: string, params: WeeklySummaryParams) {
   });
 
   return http<WeeklySummaryResponse>(`/analytics/weekly-summary?${query.toString()}`, {
+    method: "GET",
+    token,
+  });
+}
+
+export function getDailySummary(token: string, params: DailySummaryParams) {
+  const query = new URLSearchParams({
+    workspaceId: params.workspaceId,
+    date: params.date,
+  });
+
+  return http<DailySummaryResponse>(`/analytics/daily-summary?${query.toString()}`, {
     method: "GET",
     token,
   });

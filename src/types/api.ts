@@ -57,6 +57,20 @@ export type WeeklySummaryDaily = {
   netRevenue: number;
 };
 
+export type DailySummaryResponse = {
+  workspaceId: string;
+  current: WeeklySummaryDaily;
+  previous: WeeklySummaryDaily | null;
+  dayOverDay: {
+    salesAmountDiff: number;
+    refundAmountDiff: number;
+    netRevenueDiff: number;
+    salesAmountChangePct: number;
+    refundAmountChangePct: number;
+    netRevenueChangePct: number;
+  } | null;
+};
+
 export type WeeklySummaryResponse = {
   workspaceId: string;
   weekStartDate: string;
