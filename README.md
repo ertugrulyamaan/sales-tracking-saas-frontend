@@ -1,63 +1,70 @@
-# Next.js Framework Starter
+# Sales Tracking SaaS Frontend
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/next-starter-template)
+This project is a SaaS frontend built for workspace-based sales performance tracking.  
+The goal is not just collecting data, but turning sales, refunds, and target data into clear daily and weekly decisions.
 
-<!-- dash-content-start -->
+## What Problem It Solves
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It's deployed on Cloudflare Workers as a [static website](https://developers.cloudflare.com/workers/static-assets/).
+- Teams lose alignment when sales data is spread across different tools.
+- Manual reporting delays trend detection and reaction time.
+- It is hard to track progress to weekly targets, net sales, and refund impact in one place.
 
-This template uses [OpenNext](https://opennext.js.org/) via the [OpenNext Cloudflare adapter](https://opennext.js.org/cloudflare), which works by taking the Next.js build output and transforming it, so that it can run in Cloudflare Workers.
+This frontend reduces those issues by consolidating backend API data into a single operational view.
 
-<!-- dash-content-end -->
+## Architecture Overview
 
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
+- **Framework:** Next.js (App Router) + TypeScript
+- **State & Data:** React Query-based API hook structure
+- **Auth:** JWT-based authentication flows (login/register/session)
+- **Domain modules:** `auth`, `workspaces`, `sales`, `refunds`, `targets`, `analytics`
+- **UI flows:** Mission Control, Daily Entry, Weekly Summary, Workbench
 
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/next-starter-template
-```
+## Main Screens and Flows
 
-A live public deployment of this template is available at [https://next-starter-template.templates.workers.dev](https://next-starter-template.templates.workers.dev)
+- **Landing:** Product narrative focused on problem, solution, and value
+- **Mission Control:** Aggregate performance and trend visibility
+- **Daily Entry:** Daily sales/refund input workflows
+- **Weekly Summary:** Weekly overview and comparative metrics
+- **Workbench:** Operational tracking workspace
 
-## Getting Started
+## How to Run Locally
 
-First, run:
+### 1) Install
 
 ```bash
 npm install
-# or
-yarn install
-# or
-pnpm install
-# or
-bun install
 ```
 
-Then run the development server (using the package manager of your choice):
+### 2) Environment Variables
+
+Copy the example file and define your backend API base URL:
+
+```bash
+cp .env.local.example .env.local
+```
+
+Then verify the value:
+
+```bash
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
+```
+
+### 3) Start Development Server
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Running with Backend
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This repository contains the frontend only.  
+For full workflow coverage, run the backend service as well. Once Docker + PostgreSQL + Prisma migrate steps are completed on backend side, the UI works with all API flows.
 
-## Deploying To Production
+## Future Improvements
 
-| Command                           | Action                                       |
-| :-------------------------------- | :------------------------------------------- |
-| `npm run build`                   | Build your production site                   |
-| `npm run preview`                 | Preview your build locally, before deploying |
-| `npm run build && npm run deploy` | Deploy your production site to Cloudflare    |
-| `npm wrangler tail`               | View real-time logs for all Workers          |
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Increase unit and E2E test coverage
+- Add CI/CD pipeline and automated quality gates
+- Introduce role-based authorization layers
+- Integrate error monitoring and performance observability
