@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import { RouteGuard } from "@/components/auth/route-guard";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/auth-store";
+import { toast } from "sonner";
 
 type Props = { children: ReactNode };
 
@@ -19,6 +20,7 @@ export function AppProviders({ children }: Props) {
   useEffect(() => {
     const handleUnauthorized = () => {
       clearSession();
+      toast.error("Oturumunuz sonlandi. Lutfen tekrar giris yapin.");
       router.replace("/");
     };
 
