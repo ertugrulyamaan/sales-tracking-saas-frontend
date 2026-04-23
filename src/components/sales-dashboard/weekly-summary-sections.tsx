@@ -16,20 +16,20 @@ export function WeeklyStats({
 }: WeeklyStatsProps) {
   return (
     <section className="grid gap-4 md:grid-cols-4">
-      <article className="signal-cut bg-[#201f1f] p-6 md:col-span-2">
-        <p className="text-xs uppercase tracking-[0.2em] text-[#85948f]">Total Performance</p>
-        <p className="mono-metrics mt-3 text-5xl font-black">{formatMoney(totalAmount)}</p>
-        <p className="mt-2 text-sm font-bold text-[#66dd8b]">{formatPercent(trendPercent)}</p>
+      <article className="dashboard-panel signal-cut p-6 md:col-span-2">
+        <p className="text-xs uppercase tracking-[0.2em] text-[#7f98ae]">Total Performance</p>
+        <p className="mono-metrics mt-3 text-5xl font-black text-[#def5ff]">{formatMoney(totalAmount)}</p>
+        <p className="mt-2 text-sm font-bold text-[#27f0c9]">{formatPercent(trendPercent)}</p>
       </article>
-      <article className="signal-cut border-t-2 border-[#66dd8b] bg-[#2a2a2a] p-6">
-        <p className="text-xs uppercase tracking-widest text-[#85948f]">Best Day</p>
-        <p className="mt-3 text-2xl font-bold text-[#66dd8b]">{bestDay ? shortDateLabel(bestDay.date) : "-"}</p>
-        <p className="mono-metrics mt-2 text-3xl">{formatMoney(bestDay?.salesAmount ?? 0)}</p>
+      <article className="dashboard-panel-soft signal-cut border-t-2 border-[#27f0c9] p-6">
+        <p className="text-xs uppercase tracking-widest text-[#7f98ae]">Best Day</p>
+        <p className="mt-3 text-2xl font-bold text-[#27f0c9]">{bestDay ? shortDateLabel(bestDay.date) : "-"}</p>
+        <p className="mono-metrics mt-2 text-3xl text-[#ddf6ff]">{formatMoney(bestDay?.salesAmount ?? 0)}</p>
       </article>
-      <article className="signal-cut border-t-2 border-[#ffb4ac] bg-[#2a2a2a] p-6">
-        <p className="text-xs uppercase tracking-widest text-[#85948f]">Worst Day</p>
-        <p className="mt-3 text-2xl font-bold text-[#ffb4ac]">{worstDay ? shortDateLabel(worstDay.date) : "-"}</p>
-        <p className="mono-metrics mt-2 text-3xl">{formatMoney(worstDay?.salesAmount ?? 0)}</p>
+      <article className="dashboard-panel-soft signal-cut border-t-2 border-[#ff8f9a] p-6">
+        <p className="text-xs uppercase tracking-widest text-[#7f98ae]">Worst Day</p>
+        <p className="mt-3 text-2xl font-bold text-[#ff8f9a]">{worstDay ? shortDateLabel(worstDay.date) : "-"}</p>
+        <p className="mono-metrics mt-2 text-3xl text-[#ddf6ff]">{formatMoney(worstDay?.salesAmount ?? 0)}</p>
       </article>
     </section>
   );
@@ -41,13 +41,13 @@ type WeeklyLedgerTableProps = {
 
 export function WeeklyLedgerTable({ dailyBreakdown }: WeeklyLedgerTableProps) {
   return (
-    <section className="signal-cut overflow-hidden bg-[#201f1f]">
-      <div className="border-b border-[#3c4a46]/20 p-6">
-        <h2 className="font-headline text-2xl font-black">Daily Transaction Ledger</h2>
+    <section className="dashboard-panel signal-cut overflow-hidden">
+      <div className="border-b border-[#2e4358]/40 p-6">
+        <h2 className="font-headline text-2xl font-black text-[#def5ff]">Daily Transaction Ledger</h2>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px]">
-          <thead className="bg-[#1c1b1b] text-left text-[10px] uppercase tracking-[0.2em] text-[#85948f]">
+          <thead className="bg-[#0b1522] text-left text-[10px] uppercase tracking-[0.2em] text-[#7f98ae]">
             <tr>
               <th className="px-6 py-4">Date / Day</th>
               <th className="px-6 py-4">Gross Sales</th>
@@ -60,12 +60,12 @@ export function WeeklyLedgerTable({ dailyBreakdown }: WeeklyLedgerTableProps) {
             {dailyBreakdown.slice().reverse().map((day) => {
               const amount = day.salesAmount;
               return (
-                <tr key={day.date} className="border-t border-[#3c4a46]/10 text-sm">
-                  <td className="px-6 py-4 mono-metrics">{shortDateLabel(day.date)}</td>
-                  <td className="px-6 py-4 mono-metrics">{formatMoney(amount)}</td>
-                  <td className="px-6 py-4 mono-metrics text-[#ffb4ac]">{formatMoney(day.refundAmount)}</td>
-                  <td className="px-6 py-4 mono-metrics">{day.salesCount}</td>
-                  <td className="px-6 py-4 mono-metrics font-bold">{formatMoney(day.netRevenue)}</td>
+                <tr key={day.date} className="border-t border-[#2b4054]/35 text-sm">
+                  <td className="px-6 py-4 mono-metrics text-[#c5d9e9]">{shortDateLabel(day.date)}</td>
+                  <td className="px-6 py-4 mono-metrics text-[#dcf4ff]">{formatMoney(amount)}</td>
+                  <td className="px-6 py-4 mono-metrics text-[#ff8f9a]">{formatMoney(day.refundAmount)}</td>
+                  <td className="px-6 py-4 mono-metrics text-[#c5d9e9]">{day.salesCount}</td>
+                  <td className="px-6 py-4 mono-metrics font-bold text-[#2aeac6]">{formatMoney(day.netRevenue)}</td>
                 </tr>
               );
             })}

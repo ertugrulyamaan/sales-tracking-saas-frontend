@@ -50,8 +50,8 @@ export function MissionRevenueBarChart({ sales }: SalesChartProps) {
       {
         label: "Revenue",
         data: amounts,
-        backgroundColor: "rgba(68, 221, 193, 0.75)",
-        borderColor: "rgba(68, 221, 193, 1)",
+        backgroundColor: "rgba(0, 224, 255, 0.7)",
+        borderColor: "rgba(0, 224, 255, 1)",
         borderWidth: 1,
         borderRadius: 6,
       },
@@ -68,7 +68,7 @@ export function MissionRevenueBarChart({ sales }: SalesChartProps) {
     plugins: {
       legend: {
         labels: {
-          color: "#bbcac4",
+          color: "#9bb6ca",
           boxWidth: 10,
           usePointStyle: true,
         },
@@ -81,12 +81,12 @@ export function MissionRevenueBarChart({ sales }: SalesChartProps) {
     },
     scales: {
       x: {
-        ticks: { color: "#85948f" },
-        grid: { color: "rgba(133, 148, 143, 0.15)" },
+        ticks: { color: "#7f98ae" },
+        grid: { color: "rgba(127, 152, 174, 0.2)" },
       },
       y: {
-        ticks: { color: "#44ddc1" },
-        grid: { color: "rgba(133, 148, 143, 0.12)" },
+        ticks: { color: "#00e0ff" },
+        grid: { color: "rgba(127, 152, 174, 0.16)" },
       },
     },
   };

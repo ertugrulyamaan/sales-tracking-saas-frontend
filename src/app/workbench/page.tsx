@@ -10,7 +10,7 @@ import { useAddRefundMutation, useRefundsQuery, useUpsertRefundMutation } from "
 import { addRefundSchema, upsertRefundSchema, type AddRefundInput, type UpsertRefundInput } from "@/features/refunds/schema";
 import { useUpsertTargetMutation, useTargetsQuery } from "@/features/targets/hook";
 import { upsertTargetSchema, type UpsertTargetInput } from "@/features/targets/schema";
-import { AppSidebar } from "@/components/layout/app-sidebar";
+import { DashboardShell } from "@/components/layout/dashboard-shell";
 import { useAuthStore } from "@/stores/auth-store";
 import { useWorkspacesQuery } from "@/features/workspaces/hook";
 import { useWorkspaceStore } from "@/stores/workspace-store";
@@ -83,41 +83,38 @@ export default function WorkbenchPage() {
   const targets = targetsQuery.data ?? [];
 
   return (
-    <div className="min-h-screen bg-[#131313] text-[#e5e2e1] ledger-grid-dark font-body">
-      <AppSidebar
-        userEmail={user?.email}
-        onLoginClick={() => {}}
-        onRegisterClick={() => {}}
-        onLogoutClick={() => clearSession()}
-      />
-      <main className="mx-auto max-w-4xl space-y-6 p-6 lg:ml-64">
-      <h1 className="text-2xl font-semibold">Sales Tracking Workbench</h1>
-      <p>Auth: {token ? "Giriş yapıldı" : "Giriş yok"}</p>
-      <p>Kullanıcı: {user?.email ?? "-"}</p>
+    <DashboardShell
+      userEmail={user?.email}
+      onLogout={() => clearSession()}
+      contentClassName="mx-auto w-full max-w-4xl space-y-6 p-6"
+    >
+      <h1 className="font-headline text-3xl font-black text-[#e0f7ff]">Sales Tracking Workbench</h1>
+      <p className="text-[#9db3c7]">Auth: {token ? "Giriş yapıldı" : "Giriş yok"}</p>
+      <p className="text-[#9db3c7]">Kullanıcı: {user?.email ?? "-"}</p>
 
       {!token ? (
         <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <form className="space-y-2 rounded border p-4" onSubmit={loginForm.handleSubmit((values) => loginMutation.mutate(values))}>
-            <h2 className="text-lg font-medium">Login</h2>
-            <input className="w-full rounded border px-3 py-2" placeholder="email" {...loginForm.register("email")} />
-            <input type="password" className="w-full rounded border px-3 py-2" placeholder="password" {...loginForm.register("password")} />
-            <button className="rounded border px-3 py-2" disabled={loginMutation.isPending}>
+          <form className="dashboard-panel space-y-2 rounded p-4" onSubmit={loginForm.handleSubmit((values) => loginMutation.mutate(values))}>
+            <h2 className="text-lg font-medium text-[#def5ff]">Login</h2>
+            <input className="dashboard-select w-full rounded px-3 py-2" placeholder="email" {...loginForm.register("email")} />
+            <input type="password" className="dashboard-select w-full rounded px-3 py-2" placeholder="password" {...loginForm.register("password")} />
+            <button className="btn-neon rounded px-3 py-2" disabled={loginMutation.isPending}>
               {loginMutation.isPending ? "Giris yapiliyor..." : "Giris yap"}
             </button>
           </form>
 
-          <form className="space-y-2 rounded border p-4" onSubmit={registerForm.handleSubmit((values) => registerMutation.mutate(values))}>
-            <h2 className="text-lg font-medium">Register</h2>
-            <input className="w-full rounded border px-3 py-2" placeholder="email" {...registerForm.register("email")} />
-            <input type="password" className="w-full rounded border px-3 py-2" placeholder="password" {...registerForm.register("password")} />
-            <button className="rounded border px-3 py-2" disabled={registerMutation.isPending}>
+          <form className="dashboard-panel space-y-2 rounded p-4" onSubmit={registerForm.handleSubmit((values) => registerMutation.mutate(values))}>
+            <h2 className="text-lg font-medium text-[#def5ff]">Register</h2>
+            <input className="dashboard-select w-full rounded px-3 py-2" placeholder="email" {...registerForm.register("email")} />
+            <input type="password" className="dashboard-select w-full rounded px-3 py-2" placeholder="password" {...registerForm.register("password")} />
+            <button className="btn-neon rounded px-3 py-2" disabled={registerMutation.isPending}>
               {registerMutation.isPending ? "Kayit yapiliyor..." : "Kayit ol"}
             </button>
           </form>
         </section>
       ) : (
         <button
-          className="rounded border px-3 py-2"
+          className="btn-ghost rounded px-3 py-2"
           onClick={() => {
             clearSession();
             router.replace("/");
@@ -128,8 +125,8 @@ export default function WorkbenchPage() {
       )}
 
       <section>
-        <h2 className="text-lg font-medium">Workspaces</h2>
-        <select className="mb-3 rounded border px-3 py-2" value={currentWorkspaceId ?? ""} onChange={(e) => setCurrentWorkspaceId(e.target.value || null)}>
+        <h2 className="text-lg font-medium text-[#def5ff]">Workspaces</h2>
+        <select className="dashboard-select mb-3 rounded px-3 py-2" value={currentWorkspaceId ?? ""} onChange={(e) => setCurrentWorkspaceId(e.target.value || null)}>
           <option value="">Workspace sec</option>
           {workspaces.map((workspace) => (
             <option key={workspace.id} value={workspace.id}>
@@ -284,12 +281,11 @@ export default function WorkbenchPage() {
         </ul>
       </section>
 
-      <section className="space-y-2 rounded border p-4">
-        <h2 className="text-lg font-medium">Analytics Snapshot</h2>
-        <p>Daily Summary (Today): {dailySummaryQuery.data ? JSON.stringify(dailySummaryQuery.data) : "-"}</p>
-        <p>Weekly Summary: {weeklySummaryQuery.data ? JSON.stringify(weeklySummaryQuery.data) : "-"}</p>
+      <section className="dashboard-panel-soft space-y-2 rounded p-4">
+        <h2 className="text-lg font-medium text-[#def5ff]">Analytics Snapshot</h2>
+        <p className="text-[#a4bdd1]">Daily Summary (Today): {dailySummaryQuery.data ? JSON.stringify(dailySummaryQuery.data) : "-"}</p>
+        <p className="text-[#a4bdd1]">Weekly Summary: {weeklySummaryQuery.data ? JSON.stringify(weeklySummaryQuery.data) : "-"}</p>
       </section>
-    </main>
-    </div>
+    </DashboardShell>
   );
 }

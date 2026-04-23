@@ -50,10 +50,10 @@ export function MissionKpiGrid({
   return (
     <section className="grid gap-4 md:grid-cols-3">
       {cards.map((card) => (
-        <article key={card.label} className="signal-cut bg-[#201f1f] p-6">
-          <p className="text-[10px] uppercase tracking-[0.2em] text-[#85948f]">{card.label}</p>
-          <p className="mono-metrics mt-3 text-3xl font-bold">{card.value}</p>
-          <p className="mt-3 text-xs font-bold text-[#66dd8b]">{card.trend}</p>
+        <article key={card.label} className="dashboard-panel signal-cut p-6">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-[#7f98ae]">{card.label}</p>
+          <p className="mono-metrics mt-3 text-3xl font-bold text-[#def5ff]">{card.value}</p>
+          <p className="mt-3 text-xs font-bold text-[#27f0c9]">{card.trend}</p>
         </article>
       ))}
     </section>
@@ -77,16 +77,16 @@ export function MissionAnalytics({
 }: MissionAnalyticsProps) {
   return (
     <section className="mt-6 grid gap-4 lg:grid-cols-3">
-      <article className="signal-cut lg:col-span-2 bg-[#1c1b1b] p-6">
-        <h2 className="font-headline text-xl font-bold">Pulse Velocity Analytics</h2>
-        <p className="mt-2 text-sm text-[#bbcac4]">Son 7 satış kaydı görselleştiriliyor.</p>
+      <article className="dashboard-panel signal-cut lg:col-span-2 p-6">
+        <h2 className="font-headline text-xl font-bold text-[#def5ff]">Pulse Velocity Analytics</h2>
+        <p className="mt-2 text-sm text-[#9db3c7]">Son 7 satış kaydı görselleştiriliyor.</p>
         <div className="mt-6 h-64">
           <MissionRevenueBarChart sales={chartData} />
         </div>
       </article>
-      <article className="signal-cut bg-[#201f1f] p-6">
-        <h3 className="text-xs font-bold uppercase tracking-widest text-[#44ddc1]">Pulse Insights</h3>
-        <ul className="mt-4 space-y-3 text-sm text-[#bbcac4]">
+      <article className="dashboard-panel-soft signal-cut p-6">
+        <h3 className="text-xs font-bold uppercase tracking-widest text-[#00e0ff]">Pulse Insights</h3>
+        <ul className="mt-4 space-y-3 text-sm text-[#a7bfd4]">
           <li>Latest sale amount: {formatMoney(latestAmount)}</li>
           <li>Previous sale amount: {formatMoney(previousAmount)}</li>
           <li>Trend delta: {formatPercent(trendPercent)}</li>

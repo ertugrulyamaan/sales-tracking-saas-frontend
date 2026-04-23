@@ -12,7 +12,7 @@ import { useWorkspaceStore } from "@/stores/workspace-store";
 import { useAuthStore } from "@/stores/auth-store";
 import { WorkspaceSelect } from "@/components/sales-dashboard/common";
 import { DailyEntryActions, DailyEntryFields } from "@/components/sales-dashboard/daily-entry-sections";
-import { AppSidebar } from "@/components/layout/app-sidebar";
+import { DashboardShell } from "@/components/layout/dashboard-shell";
 
 export default function DailyEntryFormPage() {
   const user = useAuthStore((s) => s.user);
@@ -40,27 +40,24 @@ export default function DailyEntryFormPage() {
   }, [sales, form]);
 
   return (
-    <div className="min-h-screen bg-[#131313] text-[#e5e2e1] ledger-grid-dark font-body">
-      <AppSidebar
-        userEmail={user?.email}
-        onLoginClick={() => {}}
-        onRegisterClick={() => {}}
-        onLogoutClick={() => clearSession()}
-      />
-      <div className="mx-auto max-w-3xl p-6 lg:ml-64">
+    <DashboardShell
+      userEmail={user?.email}
+      onLogout={() => clearSession()}
+      contentClassName="mx-auto w-full max-w-3xl p-6"
+    >
         <header className="mb-6 flex items-center justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-[#44ddc1]">Session Ledger</p>
-            <h1 className="font-headline text-3xl font-black">Daily Entry Form</h1>
+            <p className="text-xs uppercase tracking-[0.2em] text-[#00e0ff]">Session Ledger</p>
+            <h1 className="font-headline text-3xl font-black text-[#e0f7ff]">Daily Entry Form</h1>
           </div>
-          <Link href="/" className="signal-cut-sm bg-[#44ddc1] px-4 py-2 text-xs font-bold uppercase tracking-widest text-[#00382f]">
+          <Link href="/" className="btn-neon signal-cut-sm px-4 py-2 text-xs font-bold uppercase tracking-widest">
             Home
           </Link>
         </header>
 
         <section className="mb-4">
           <WorkspaceSelect
-            className="rounded-lg border border-[#3c4a46] bg-[#1c1b1b] px-3 py-2 text-sm"
+            className="dashboard-select rounded-lg px-3 py-2 text-sm"
             value={currentWorkspaceId ?? ""}
             onChange={(value) => setCurrentWorkspaceId(value || null)}
             workspaces={workspacesQuery.data ?? []}
@@ -68,7 +65,7 @@ export default function DailyEntryFormPage() {
         </section>
 
         <form
-          className="signal-cut bg-[#1c1b1b] p-8 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+          className="dashboard-panel signal-cut p-8"
           onSubmit={form.handleSubmit((values) => {
             if (!currentWorkspaceId) return;
             upsertSaleMutation.mutate({
@@ -80,11 +77,10 @@ export default function DailyEntryFormPage() {
           })}
         >
           <DailyEntryFields form={form} summary={summary} />
-          <p className="mt-2 text-xs text-[#66dd8b]">{sales.length} kayıt</p>
+          <p className="mt-2 text-xs text-[#22efc8]">{sales.length} kayıt</p>
           <DailyEntryActions disabled={!currentWorkspaceId || upsertSaleMutation.isPending} onClear={() => form.reset()} />
-          {upsertSaleMutation.error ? <p className="mt-3 text-sm text-[#ffb4ac]">{upsertSaleMutation.error.message}</p> : null}
+          {upsertSaleMutation.error ? <p className="mt-3 text-sm text-[#ff98a3]">{upsertSaleMutation.error.message}</p> : null}
         </form>
-      </div>
-    </div>
+    </DashboardShell>
   );
 }
